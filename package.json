@@ -3,18 +3,18 @@
   "displayName": "console-logger",
   "description": "Create console log messages.",
   "version": "0.0.1",
+  "publisher": "ztessema",
   "engines": {
     "vscode": "^1.88.1"
   },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [],
+  "icon": "images/icon.png",
+  "categories": ["Debuggers"],
+  "activationEvents": ["onStartupFinished"],
   "main": "./dist/extension.js",
   "contributes": {
     "configuration": {
       "type": "object",
-      "title": "Console Logger Configuration",
+      "title": "Console Logger",
       "properties": {
         "console-logger.color": {
           "type": "string",
@@ -28,7 +28,7 @@
         },
         "console-logger.fontSize": {
           "type": "number",
-          "default": "",
+          "default": 0,
           "description": "The font size of the logged message."
         },
         "console-logger.quote": {
@@ -63,9 +63,18 @@
     "commands": [
       {
         "command": "console-logger.helloWorld",
-        "title": "Hello World"
+        "title": "Hello World",
+        "icon": "$(pencil)"
       }
-    ]
+    ],
+    "menus": {
+        "editor/title": [
+            {
+              "command": "console-logger.helloWorld",
+              "group": "navigation"
+            }
+        ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",

@@ -12,11 +12,8 @@ const DEPENDENCIES_REGEX = /^(\s*)(}, \[(.*)]\))/;
 
 export async function LogMessage() {
 
-    const { activeTextEditor } = window;
-    const { showInformationMessage, showWarningMessage } = window;
+    const { activeTextEditor, showWarningMessage } = window;
 
-    showInformationMessage('Hello World from console-logger!');
-    
     const editor = activeTextEditor;
     if (!editor) {
         showWarningMessage('No file currently open!');
@@ -49,9 +46,8 @@ export async function LogMessage() {
         const formattedSelectedVar = `{${alias !== selectedText ? `${alias}: ${selectedText}` : selectedText}}`;
     
         const { outputTerminal, logFunction, quote, color, bgColor, fontSize } = getSettings();
-        console.log('LogMessage:', {outputTerminal, logFunction});
 
-        const options = `'color: ${color}${bgColor ? `; background: ${bgColor}` : ''}${fontSize ? `; font-size: ${fontSize}` : ''}'`;
+        const options = `'color: ${color}${bgColor ? `; background: ${bgColor}` : ''}${fontSize ? `; font-size: ${fontSize}px` : ''}'`;
         const logMessage = `${indentation}${outputTerminal}.${logFunction}(${quote}%c📝${GetFunction()}:${quote}, ${options}, ${formattedSelectedVar});`;
 
         return addNewLine ? `\n${logMessage}` : `${logMessage}\n`;
@@ -120,7 +116,7 @@ export async function LogMessage() {
 
 function getSettings() {
     const { color, bgColor, fontSize, quote, outputTerminal, logFunction } = workspace.getConfiguration('console-logger');
-    return { color, bgColor, fontSize, quote, outputTerminal, logFunction } as Settings;
+    return { color, bgColor, fontSize: +fontSize, quote, outputTerminal, logFunction } as Settings;
 }
 
 interface Settings {
@@ -131,7 +127,7 @@ interface Settings {
     color: string;
     
     /**The font size of the logged message.*/
-    fontSize: string;
+    fontSize: number;
     
     /**The type of quote to use (double, single, backtick).*/
     quote: string;
