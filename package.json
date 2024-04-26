@@ -2,14 +2,18 @@
   "name": "console-logger",
   "displayName": "ConsoleLogger",
   "description": "Create console log messages.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "ztessema",
   "engines": {
     "vscode": "^1.88.0"
   },
   "icon": "images/icon.png",
-  "categories": ["Debuggers"],
-  "activationEvents": ["onStartupFinished"],
+  "categories": [
+    "Debuggers"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "configuration": {
@@ -33,7 +37,11 @@
         },
         "ConsoleLogger.quote": {
           "type": "string",
-          "enum": ["\"","'", "`"],
+          "enum": [
+            "\"",
+            "'",
+            "`"
+          ],
           "default": "'",
           "description": "The type of quote to use (double, single, backtick)."
         },
@@ -68,12 +76,12 @@
       }
     ],
     "menus": {
-        "editor/title": [
-            {
-              "command": "ConsoleLogger.Log",
-              "group": "navigation"
-            }
-        ]
+      "editor/title": [
+        {
+          "command": "ConsoleLogger.Log",
+          "group": "navigation"
+        }
+      ]
     }
   },
   "scripts": {
