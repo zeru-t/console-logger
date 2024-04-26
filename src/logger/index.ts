@@ -115,7 +115,7 @@ export async function LogMessage() {
 }
 
 function getSettings() {
-    const { color, bgColor, fontSize, quote, outputTerminal, logFunction } = workspace.getConfiguration('console-logger');
+    const { color, bgColor, fontSize, quote, outputTerminal, logFunction } = workspace.getConfiguration('ConsoleLogger');
     return { color, bgColor, fontSize: +fontSize, quote, outputTerminal, logFunction } as Settings;
 }
 

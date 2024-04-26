@@ -1,43 +1,43 @@
 {
   "name": "console-logger",
-  "displayName": "console-logger",
+  "displayName": "ConsoleLogger",
   "description": "Create console log messages.",
   "version": "0.0.1",
   "publisher": "ztessema",
   "engines": {
-    "vscode": "^1.88.1"
+    "vscode": "^1.88.0"
   },
   "icon": "images/icon.png",
   "categories": ["Debuggers"],
   "activationEvents": ["onStartupFinished"],
-  "main": "./dist/extension.js",
+  "main": "./out/extension.js",
   "contributes": {
     "configuration": {
       "type": "object",
       "title": "Console Logger",
       "properties": {
-        "console-logger.color": {
+        "ConsoleLogger.color": {
           "type": "string",
           "default": "cyan",
           "description": "The font color of the logged message."
         },
-        "console-logger.bgColor": {
+        "ConsoleLogger.bgColor": {
           "type": "string",
           "default": "",
           "description": "The background color of the logged message."
         },
-        "console-logger.fontSize": {
+        "ConsoleLogger.fontSize": {
           "type": "number",
           "default": 0,
           "description": "The font size of the logged message."
         },
-        "console-logger.quote": {
+        "ConsoleLogger.quote": {
           "type": "string",
           "enum": ["\"","'", "`"],
           "default": "'",
           "description": "The type of quote to use (double, single, backtick)."
         },
-        "console-logger.outputTerminal": {
+        "ConsoleLogger.outputTerminal": {
           "type": "string",
           "enum": [
             "console",
@@ -46,7 +46,7 @@
           "default": "console",
           "description": "The output terminal to use."
         },
-        "console-logger.logFunction": {
+        "ConsoleLogger.logFunction": {
           "type": "string",
           "enum": [
             "log",
@@ -62,28 +62,25 @@
     },
     "commands": [
       {
-        "command": "console-logger.helloWorld",
-        "title": "Hello World",
+        "command": "ConsoleLogger.Log",
+        "title": "Display Log Message",
         "icon": "$(pencil)"
       }
     ],
     "menus": {
         "editor/title": [
             {
-              "command": "console-logger.helloWorld",
+              "command": "ConsoleLogger.Log",
               "group": "navigation"
             }
         ]
     }
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run package",
-    "compile": "webpack",
-    "watch": "webpack --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
     "test": "vscode-test"
   },
@@ -95,9 +92,6 @@
     "@typescript-eslint/parser": "^7.4.0",
     "eslint": "^8.57.0",
     "typescript": "^5.3.3",
-    "ts-loader": "^9.5.1",
-    "webpack": "^5.91.0",
-    "webpack-cli": "^5.1.4",
     "@vscode/test-cli": "^0.0.8",
     "@vscode/test-electron": "^2.3.9"
   }
