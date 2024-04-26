@@ -1,5 +1,5 @@
 {
-  "name": "console-logger",
+  "name": "console_logger",
   "displayName": "ConsoleLogger",
   "description": "Create console log messages.",
   "version": "1.0.0",
