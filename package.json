@@ -1,0 +1,95 @@
+{
+  "name": "console-logger",
+  "displayName": "console-logger",
+  "description": "Create console log messages.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Console Logger Configuration",
+      "properties": {
+        "console-logger.color": {
+          "type": "string",
+          "default": "cyan",
+          "description": "The font color of the logged message."
+        },
+        "console-logger.bgColor": {
+          "type": "string",
+          "default": "",
+          "description": "The background color of the logged message."
+        },
+        "console-logger.fontSize": {
+          "type": "number",
+          "default": "",
+          "description": "The font size of the logged message."
+        },
+        "console-logger.quote": {
+          "type": "string",
+          "enum": ["\"","'", "`"],
+          "default": "'",
+          "description": "The type of quote to use (double, single, backtick)."
+        },
+        "console-logger.outputTerminal": {
+          "type": "string",
+          "enum": [
+            "console",
+            "Serial"
+          ],
+          "default": "console",
+          "description": "The output terminal to use."
+        },
+        "console-logger.logFunction": {
+          "type": "string",
+          "enum": [
+            "log",
+            "debug",
+            "print",
+            "printf",
+            "println"
+          ],
+          "default": "log",
+          "description": "The logging function to use."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "console-logger.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.88.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.3.9"
+  }
+}
