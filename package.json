@@ -1,6 +1,6 @@
 {
   "name": "console-logger-z",
-  "displayName": "ConsoleLogger",
+  "displayName": "Console Logger",
   "description": "Create console log messages.",
   "version": "1.0.0",
   "publisher": "ztessema",
