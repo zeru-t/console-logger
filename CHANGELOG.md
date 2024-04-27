@@ -1,7 +1,10 @@
 # Change Log
 
-All notable changes to the "console-logger" extension will be documented in this file.
+## [v1.0.1] (4/27/2024)
 
-## [v1.0.0]
+### Documentation
+- Update README and CHANGELOG 
 
-- Initial release
+## [v1.0.0] (4/26/2024)
+
+### Initial release
