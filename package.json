@@ -2,7 +2,7 @@
   "name": "console-logger-z",
   "displayName": "Console Logger",
   "description": "Create console log messages.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "ztessema",
   "repository": "https://github.com/ztessema/console-logger",
   "engines": {
