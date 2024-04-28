@@ -1,8 +1,8 @@
 import { Position, window, workspace } from 'vscode';
 
-const FUNCTION_REGEX = /^(\s*)(export )?(function )?([aA-zZ0-9]+)(\(.*\) {).*/;
-const CONST_REGEX = /^(\s*)(export )?(const )(.*)( = \(.*\)\s* => {)/;
-const HOOKS_REGEX = /^(\s*)(const )(.*)( = use.*\(.*\s*{)/;
+const FUNCTION_REGEX = /^(\s*)(export\s*)?(async\s*)?(function\s*)?([aA-zZ0-9]+)(\(.*\)\s*{).*/;
+const CONST_REGEX = /^(\s*)(export\s*)?(const\s*)(.*)(\s*=\s*(async\s*)?\(.*\)\s*=>\s*{)/;
+const HOOKS_REGEX = /^(\s*)(const\s*)(.*)(\s*=\s*use.*\(.*\s*{)/;
 const EFFECT_REGEX = /^(\s*)(useEffect\(\(\).*{)/;
 
 const OPEN_BRACKET_REGEX = /{/g;
@@ -96,7 +96,16 @@ export async function LogMessage() {
             }
 
             const match = lineText.match(FUNCTION_REGEX) ?? lineText.match(CONST_REGEX) ?? lineText.match(HOOKS_REGEX);
-            if (match) return match[3];
+            if (match) {
+                return match
+                    .filter(m => m)
+                    .filter(m => m !== lineText)
+                    .filter(m => m !== 'export ')
+                    .filter(m => m !== 'async ')
+                    .filter(m => m !== 'function ')
+                    .filter(m => m !== 'export ')
+                    .filter(m => m !== 'const ')[0];
+            }
             
             const eMatch = lineText.match(EFFECT_REGEX)?.[0];
             if (eMatch) return `useEffect - [${getDependencies()}]`;
