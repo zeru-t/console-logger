@@ -1,7 +1,7 @@
 import { Position, window, workspace } from 'vscode';
 
-const FUNCTION_REGEX = /^(\s*)(function )?([aA-zZ0-9]+)(\(.*\) {).*/;
-const CONST_REGEX = /^(\s*)(const )(.*)( = \(.*\)\s* => {)/;
+const FUNCTION_REGEX = /^(\s*)(export )?(function )?([aA-zZ0-9]+)(\(.*\) {).*/;
+const CONST_REGEX = /^(\s*)(export )?(const )(.*)( = \(.*\)\s* => {)/;
 const HOOKS_REGEX = /^(\s*)(const )(.*)( = use.*\(.*\s*{)/;
 const EFFECT_REGEX = /^(\s*)(useEffect\(\(\).*{)/;
 
