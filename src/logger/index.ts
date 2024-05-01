@@ -1,9 +1,10 @@
 import { Position, window, workspace } from 'vscode';
 
-const FUNCTION_REGEX = /^(\s*)(export\s*)?(async\s*)?(function\s*)?([aA-zZ0-9]+)(\(.*\)\s*{).*/;
-const CONST_REGEX = /^(\s*)(export\s*)?(const\s*)(.*)(\s*=\s*(async\s*)?\(.*\)\s*=>\s*{)/;
-const HOOKS_REGEX = /^(\s*)(const\s*)(.*)(\s*=\s*use.*\(.*\s*{)/;
+const FUNCTION_REGEX = /^(.*?)(function\s*)?([aA-zZ0-9]+)(\s*)(\(.*\)\s*{).*/;
+const CONST_REGEX = /^(.*?)(const\s*)?([aA-zZ0-9]+)(\s*=\s*(async\s*)?\(.*\)\s*=>\s*{)/;
+const HOOKS_REGEX = /^(\s*)(const\s*)([aA-zZ0-9]+)(\s*=\s*use.*\(.*\s*{)/;
 const EFFECT_REGEX = /^(\s*)(useEffect\(\(\).*{)/;
+const INVALID_REGEX = /^(\s*)((if\s*)|(for\s*)|(switch\s*)|(while\s*)|(do\s*))(.*)\s*{.*/;
 
 const OPEN_BRACKET_REGEX = /{/g;
 const CLOSED_BRACKET_REGEX = /}/g;
@@ -57,11 +58,12 @@ export async function LogMessage() {
         let lineNumber = selectedTextLineNumber;
 
         function hasFunctionName(lineText: string) {
+            const isInvalid = INVALID_REGEX.test(lineText);
             const isFunction = FUNCTION_REGEX.test(lineText);
             const isConst = CONST_REGEX.test(lineText);
             const isHook = HOOKS_REGEX.test(lineText);
             const isEffect = EFFECT_REGEX.test(lineText);
-            return isFunction || isConst || isHook || isEffect;
+            return !isInvalid && (isFunction || isConst || isHook || isEffect);
         }
 
         function inOtherFunction() {
@@ -95,20 +97,13 @@ export async function LogMessage() {
                 return 'N/A';
             }
 
-            const match = lineText.match(FUNCTION_REGEX) ?? lineText.match(CONST_REGEX) ?? lineText.match(HOOKS_REGEX);
-            if (match) {
-                return match
-                    .filter(m => m)
-                    .filter(m => m !== lineText)
-                    .filter(m => m !== 'export ')
-                    .filter(m => m !== 'async ')
-                    .filter(m => m !== 'function ')
-                    .filter(m => m !== 'export ')
-                    .filter(m => m !== 'const ')[0];
-            }
+            let match = lineText.match(FUNCTION_REGEX) ?? lineText.match(CONST_REGEX) ?? lineText.match(HOOKS_REGEX);
+            if (match)
+                return match[3];
             
             const eMatch = lineText.match(EFFECT_REGEX)?.[0];
-            if (eMatch) return `useEffect - [${getDependencies()}]`;
+            if (eMatch)
+                return `useEffect - [${getDependencies()}]`;
 
             return 'N/A';
         }
@@ -119,7 +114,7 @@ export async function LogMessage() {
                 return getFunctionName(lineText);
         }
 
-        return document.fileName;
+        return document.fileName.split('\\').pop();
     }
 }
 

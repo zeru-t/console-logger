@@ -1,0 +1,94 @@
+// @ts-nocheck
+
+// FUNCTIONS
+function test1() {
+    const exampleVariable = true;
+}
+
+export function test2() {
+    const exampleVariable = true;
+}
+
+async function test3() {
+    const exampleVariable = true;
+}
+
+export async function test4() {
+    const exampleVariable = true;
+}
+
+test5() {
+    const exampleVariable = true;
+}
+
+private test6() {
+    const exampleVariable = true;
+}
+
+public test7() {
+    const exampleVariable = true;
+}
+
+
+// CONST
+const test8 = () => {
+    const exampleVariable = true;
+};
+
+export const test9 =  () => {
+    const exampleVariable = true;
+};
+
+const test10 = async () => {
+    const exampleVariable = true;
+};
+
+export const test11 = async () => {
+    const exampleVariable = true;
+};
+
+test12 = () => {
+    const exampleVariable = true;
+};
+
+
+// HOOKS
+const test13 = useCallback(() => {
+    const exampleVariable = true;
+}, []);
+
+const test14 = useMemo(() => {
+    const exampleVariable = true;
+}, []);
+
+useEffect(() => {
+    const exampleVariable = true;
+}, [test14]);
+
+// INVALID
+function test15() {
+    
+    if (true) {
+        const exampleVariable = true;
+    }
+
+    for (var i = 0; i < 10; i++) {
+        const exampleVariable = true;
+    }
+
+    switch(test) {
+        default: break;
+    }
+
+    while (condition) {
+        const exampleVariable = true;
+    }
+
+    do {
+        const exampleVariable = true;
+    } while (i < 5);
+}
+
+function doThis() {
+
+}
