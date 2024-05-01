@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.1.0] (5/1/2024)
+
+### Bug Fix
+- Reworked function name parsing logic
+- Updated file name fallback to not show full file path
+
 ## [v1.0.3] (4/28/2024)
 
 ### Bug Fix
