@@ -33,8 +33,8 @@ export async function LogMessage() {
     const logMessageLineNumber = selectedTextLineNumber + 1;
     const position = new Position(logMessageLineNumber, 0);
     
-    const selectedTextLine = document.lineAt(selectedTextLineNumber);
-    const indentation = selectedTextLine.text.substring(0, selectedTextLine.firstNonWhitespaceCharacterIndex);
+    const logMessageLine = document.lineAt(logMessageLineNumber);
+    const indentation = logMessageLine.text.substring(0, logMessageLine.firstNonWhitespaceCharacterIndex);
 
     await editor.edit((editBuilder) => { editBuilder.insert(position, CreateLogMessage()); });
 
