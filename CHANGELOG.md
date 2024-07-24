@@ -1,5 +1,10 @@
 # Change Log
 
+## [v1.1.1] (7/24/2024)
+
+### Logging Update
+- Updated log message to match indentation of next line
+
 ## [v1.1.0] (5/1/2024)
 
 ### Bug Fix
