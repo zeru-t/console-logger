@@ -4,7 +4,7 @@
   "description": "Create console log messages.",
   "version": "1.1.0",
   "publisher": "ztessema",
-  "repository": "https://github.com/ztessema/console-logger",
+  "repository": "https://github.com/zeru-t/console-logger",
   "engines": {
     "vscode": "^1.88.0"
   },
