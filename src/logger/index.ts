@@ -26,13 +26,13 @@ export async function LogMessage() {
         showWarningMessage('No text selected!');
         return null;
     }
-    
+
     const document = editor.document;
     const selectedText = document.getText(selection).trim();
     const selectedTextLineNumber = selection.active.line;
     const logMessageLineNumber = selectedTextLineNumber + 1;
     const position = new Position(logMessageLineNumber, 0);
-    
+
     const logMessageLine = document.lineAt(logMessageLineNumber);
     const indentation = logMessageLine.text.substring(0, logMessageLine.firstNonWhitespaceCharacterIndex);
 
@@ -41,11 +41,11 @@ export async function LogMessage() {
     function CreateLogMessage() {
 
         const addNewLine = logMessageLineNumber === document.lineCount;
-        
+
         const alias = selectedText.split('.').pop()!.replace(/\((.*)\)/, '');
-    
-        const formattedSelectedVar = `{${alias !== selectedText ? `${alias}: ${selectedText}` : selectedText}}`;
-    
+
+        const formattedSelectedVar = `{ ${alias !== selectedText ? `${alias}: ${selectedText}` : selectedText }}`;
+
         const { outputTerminal, logFunction, quote, color, bgColor, fontSize } = getSettings();
 
         const options = `'color: ${color}${bgColor ? `; background: ${bgColor}` : ''}${fontSize ? `; font-size: ${fontSize}px` : ''}'`;
@@ -53,7 +53,7 @@ export async function LogMessage() {
 
         return addNewLine ? `\n${logMessage}` : `${logMessage}\n`;
     }
-    
+
     function GetFunction() {
         let lineNumber = selectedTextLineNumber;
 
@@ -73,10 +73,10 @@ export async function LogMessage() {
                 const closingBracketLineText = document.lineAt(closingBracketLineNumber).text;
                 openBrackets += closingBracketLineText.match(OPEN_BRACKET_REGEX)?.length ?? 0;
                 closedBrackets += closingBracketLineText.match(CLOSED_BRACKET_REGEX)?.length ?? 0;
-                
+
                 if (openBrackets === closedBrackets)
                     return selectedTextLineNumber > closingBracketLineNumber;
-                
+
                 closingBracketLineNumber++;
             }
             return false;
@@ -89,9 +89,9 @@ export async function LogMessage() {
                 while (dependenciesLineNumber < document.lineCount) {
                     const dependenciesLineText = document.lineAt(dependenciesLineNumber).text;
                     const dependencies = dependenciesLineText.match(DEPENDENCIES_REGEX);
-                    
+
                     if (dependencies) return dependencies[3];
-                    
+
                     dependenciesLineNumber++;
                 }
                 return 'N/A';
@@ -100,7 +100,7 @@ export async function LogMessage() {
             let match = lineText.match(FUNCTION_REGEX) ?? lineText.match(CONST_REGEX) ?? lineText.match(HOOKS_REGEX);
             if (match)
                 return match[3];
-            
+
             const eMatch = lineText.match(EFFECT_REGEX)?.[0];
             if (eMatch)
                 return `useEffect - [${getDependencies()}]`;
@@ -126,19 +126,19 @@ function getSettings() {
 interface Settings {
     /**The font color of the logged message.*/
     bgColor: string;
-    
+
     /**The background color of the logged message.*/
     color: string;
-    
+
     /**The font size of the logged message.*/
     fontSize: number;
-    
+
     /**The type of quote to use (double, single, backtick).*/
     quote: string;
-    
+
     /**The output terminal to use (console, Serial).*/
     outputTerminal: string;
-    
+
     /**The logging function to use (log, debug, print, printf, println).*/
     logFunction: string;
 }
