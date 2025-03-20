@@ -44,7 +44,7 @@ export async function LogMessage() {
 
         const alias = selectedText.split('.').pop()!.replace(/\((.*)\)/, '');
 
-        const formattedSelectedVar = `{ ${alias !== selectedText ? `${alias}: ${selectedText}` : selectedText }}`;
+        const formattedSelectedVar = `{ ${alias !== selectedText ? `${alias}: ${selectedText}` : selectedText} }`;
 
         const { outputTerminal, logFunction, quote, color, bgColor, fontSize } = getSettings();
 
